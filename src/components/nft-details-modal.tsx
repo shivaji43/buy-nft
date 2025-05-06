@@ -1,10 +1,11 @@
 "use client"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, Copy, Check } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useState } from "react"
 import type { NftDetail } from "@/utils/types"
 
 interface NftDetailsModalProps {
@@ -16,9 +17,18 @@ interface NftDetailsModalProps {
 }
 
 export function NftDetailsModal({ isOpen, onOpenChange, nftDetail, isLoading, error }: NftDetailsModalProps) {
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const copyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(field);
+      setTimeout(() => setCopied(null), 2000);
+    });
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-6xl lg:max-w-7xl md:max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl">{nftDetail?.name || "NFT Details"}</DialogTitle>
           {nftDetail?.collectionName && <DialogDescription>Collection: {nftDetail.collectionName}</DialogDescription>}
@@ -65,7 +75,7 @@ export function NftDetailsModal({ isOpen, onOpenChange, nftDetail, isLoading, er
                         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                           {attr.trait_type}
                         </p>
-                        <p className="text-sm font-semibold truncate" title={String(attr.value)}>
+                        <p className="text-sm font-semibold " title={String(attr.value)}>
                           {String(attr.value)}
                         </p>
                       </div>
@@ -82,11 +92,20 @@ export function NftDetailsModal({ isOpen, onOpenChange, nftDetail, isLoading, er
                 <h4 className="font-medium">Details</h4>
                 <div className="text-xs space-y-2">
                   <TooltipProvider>
-                    <div className="flex justify-between">
-                      <span className="font-medium">Mint:</span>
+                    <div className="flex justify-left items-center">
+                      <span className="font-medium mr-2">Mint:</span>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-6 w-6 mr-1" 
+                        onClick={() => copyToClipboard(nftDetail.mintAddress, "mint")}
+                        title="Copy to clipboard"
+                      >
+                        {copied === "mint" ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                      </Button>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="truncate max-w-[200px] inline-block">{nftDetail.mintAddress}</span>
+                          <span className="max-w-[200px] inline-block">{nftDetail.mintAddress}</span>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="break-all max-w-[300px]">{nftDetail.mintAddress}</p>
@@ -94,11 +113,20 @@ export function NftDetailsModal({ isOpen, onOpenChange, nftDetail, isLoading, er
                       </Tooltip>
                     </div>
 
-                    <div className="flex justify-between">
-                      <span className="font-medium">Owner:</span>
+                    <div className="flex justify-left items-center">
+                      <span className="font-medium mr-2">Owner:</span>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-6 w-6 mr-1" 
+                        onClick={() => copyToClipboard(nftDetail.owner, "owner")}
+                        title="Copy to clipboard"
+                      >
+                        {copied === "owner" ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                      </Button>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="truncate max-w-[200px] inline-block">{nftDetail.owner}</span>
+                          <span className="max-w-[200px] inline-block">{nftDetail.owner}</span>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="break-all max-w-[300px]">{nftDetail.owner}</p>
@@ -106,11 +134,20 @@ export function NftDetailsModal({ isOpen, onOpenChange, nftDetail, isLoading, er
                       </Tooltip>
                     </div>
 
-                    <div className="flex justify-between">
-                      <span className="font-medium">Update Authority:</span>
+                    <div className="flex justify-left items-center">
+                      <span className="font-medium mr-2">Update Authority:</span>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-6 w-6 mr-1" 
+                        onClick={() => copyToClipboard(nftDetail.updateAuthority, "updateAuthority")}
+                        title="Copy to clipboard"
+                      >
+                        {copied === "updateAuthority" ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                      </Button>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <span className="truncate max-w-[200px] inline-block">{nftDetail.updateAuthority}</span>
+                          <span className="max-w-[200px] inline-block">{nftDetail.updateAuthority}</span>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="break-all max-w-[300px]">{nftDetail.updateAuthority}</p>
@@ -119,9 +156,9 @@ export function NftDetailsModal({ isOpen, onOpenChange, nftDetail, isLoading, er
                     </div>
                   </TooltipProvider>
 
-                  <div className="flex justify-between">
+                  <div className="flex justify-left">
                     <span className="font-medium">Seller Fee:</span>
-                    <span>{nftDetail.sellerFeeBasisPoints / 100}%</span>
+                    <span className="px-2">{nftDetail.sellerFeeBasisPoints / 100}%</span>
                   </div>
                 </div>
               </div>

@@ -284,19 +284,19 @@ export default function CollectionListingsPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <Button
-          variant="ghost"
-          asChild
-          className="mb-6 group flex items-center gap-2 hover:bg-muted/50"
-        >
-          <Link href="/">
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            <span>Back to Collections</span>
-          </Link>
-        </Button>
+    <div className="container mx-auto px-4 py-8 relative">
+      <Button
+        variant="ghost"
+        asChild
+        className="absolute top-4 left-4 text-sm p-2 h-auto group flex items-center gap-1 hover:bg-muted/50 hover:text-orange-500"
+      >
+        <Link href="/">
+          <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+          <span>Back</span>
+        </Link>
+      </Button>
 
+      <div className="mb-8 pt-10">
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold capitalize bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
             {collectionName || "Collection"} Listings

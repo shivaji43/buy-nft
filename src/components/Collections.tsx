@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { Info, Sparkles, TrendingUp, Clock, Calendar, CalendarDays } from "lucide-react"
+// Import icons from react-icons
+import { FiInfo, FiTrendingUp, FiClock, FiCalendar } from "react-icons/fi"
+import { IoSparklesOutline } from "react-icons/io5"
+import { BsCalendarWeek, BsCalendar3 } from "react-icons/bs"
 
 const TIME_RANGES = ["1h", "1d", "7d", "30d"] as const
 type TimeRange = (typeof TIME_RANGES)[number]
@@ -75,19 +78,18 @@ export default function CollectionsPage() {
     return sol.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })
   }
 
-  // Helper function to get the appropriate icon for time range
   const getTimeRangeIcon = (range: TimeRange) => {
     switch (range) {
       case "1h":
-        return <Clock className="h-4 w-4" />
+        return <FiClock className="h-4 w-4" />
       case "1d":
-        return <Calendar className="h-4 w-4" />
+        return <FiCalendar className="h-4 w-4" />
       case "7d":
-        return <CalendarDays className="h-4 w-4" />
+        return <BsCalendarWeek className="h-4 w-4" /> 
       case "30d":
-        return <CalendarDays className="h-4 w-4" />
+        return <BsCalendar3 className="h-4 w-4" /> 
       default:
-        return <Clock className="h-4 w-4" />
+        return <FiClock className="h-4 w-4" />
     }
   }
 
@@ -95,7 +97,7 @@ export default function CollectionsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8 text-center space-y-4">
         <div className="inline-flex items-center gap-2 bg-muted/50 px-4 py-1 rounded-full">
-          <Sparkles className="h-4 w-4 text-purple-500" />
+          <IoSparklesOutline className="h-4 w-4 text-purple-500" /> {/* Replaced Sparkles */}
           <span className="text-sm font-medium">Explore NFT Collections</span>
         </div>
         <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
@@ -147,7 +149,7 @@ export default function CollectionsPage() {
       {error && (
         <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-6 text-center text-destructive max-w-xl mx-auto">
           <div className="flex flex-col items-center gap-2">
-            <Info className="h-8 w-8" />
+            <FiInfo className="h-8 w-8" /> {/* Replaced Info */}
             <h3 className="font-semibold text-lg">Error Loading Collections</h3>
             <p className="text-sm">{error}</p>
           </div>
@@ -184,7 +186,7 @@ export default function CollectionsPage() {
                       variant="secondary"
                       className="absolute top-2 right-2 bg-green-500/90 text-white font-medium"
                     >
-                      <TrendingUp className="mr-1 h-3 w-3" />
+                      <FiTrendingUp className="mr-1 h-3 w-3" /> {/* Replaced TrendingUp */}
                     </Badge>
                   )}
                 </div>
@@ -225,7 +227,7 @@ export default function CollectionsPage() {
       {!isLoading && !error && collections.length === 0 && (
         <div className="text-center py-16">
           <div className="mx-auto w-24 h-24 rounded-full bg-muted/50 flex items-center justify-center mb-4">
-            <Info className="h-10 w-10 text-muted-foreground" />
+            <FiInfo className="h-10 w-10 text-muted-foreground" /> {/* Replaced Info */}
           </div>
           <h3 className="text-xl font-semibold mb-2">No Collections Found</h3>
           <p className="text-muted-foreground max-w-md mx-auto">
