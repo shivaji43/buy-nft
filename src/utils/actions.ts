@@ -1,5 +1,3 @@
-"use server";
-
 import { Connection } from "@solana/web3.js";
 
 export const confirmTransaction = async (signature: string, blockhash: string, lastValidBlockHeight: number)=>{
