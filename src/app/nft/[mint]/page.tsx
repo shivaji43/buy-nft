@@ -216,7 +216,6 @@ export default function NftDetailPage() {
       setError(null);
       setDisplayedPrice(null);
       let currentListingPriceSol: number | null = listingPriceSol;
-      // Inside the fetchAndCalculatePrice function in NftDetailPage.js
         if (!nftData || !listingPriceSol) {
             try {
             const detailsPromise = axios.get<NftData>(
