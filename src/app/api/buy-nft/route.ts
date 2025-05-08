@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     try {
       const listingResponse = await axios.get(
         `https://api-mainnet.magiceden.dev/v2/tokens/${mint}/listings`,
-        { headers: { Accept: "application/json" } }
+        { headers: { Accept: "application/json"} }
       );
 
       if (!listingResponse.data || listingResponse.data.length === 0) {

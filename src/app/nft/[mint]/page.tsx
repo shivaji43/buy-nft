@@ -216,57 +216,57 @@ export default function NftDetailPage() {
       setError(null);
       setDisplayedPrice(null);
       let currentListingPriceSol: number | null = listingPriceSol;
-
-      if (!nftData || !listingPriceSol) {
-        try {
-          const detailsPromise = axios.get<NftData>(
-            `https://api-mainnet.magiceden.dev/v2/tokens/${mint}`,
-            { headers: { accept: "application/json" } }
-          );
-          const listingPromise = axios.get(
-            `https://api-mainnet.magiceden.dev/v2/tokens/${mint}/listings`,
-            { headers: { accept: "application/json" } }
-          );
-          const [detailsResponse, listingResponse] = await Promise.all([
-            detailsPromise,
-            listingPromise,
-          ]);
-
-          if (!isMounted) return;
-
-          if (detailsResponse.status !== 200 || !detailsResponse.data)
-            throw new Error("Failed to fetch NFT details");
-          setNftData(detailsResponse.data);
-
-          if (
-            listingResponse.status === 200 &&
-            listingResponse.data &&
-            listingResponse.data.length > 0
-          ) {
-            currentListingPriceSol = parseFloat(listingResponse.data[0].price);
-            setListingPriceSol(currentListingPriceSol);
-          } else {
-            console.warn(`No active listings found for mint: ${mint}`);
-            currentListingPriceSol = detailsResponse.data.price ?? null;
-            setListingPriceSol(currentListingPriceSol);
-            if (currentListingPriceSol === null)
-              setError("NFT may not be currently listed for sale.");
-          }
-        } catch (err: any) {
-          console.error("Error fetching NFT data:", err);
-          if (isMounted)
-            setError(
-              err.response?.data?.message ||
-                err.message ||
-                "Failed to load NFT data."
+      // Inside the fetchAndCalculatePrice function in NftDetailPage.js
+        if (!nftData || !listingPriceSol) {
+            try {
+            const detailsPromise = axios.get<NftData>(
+                `/api/tokens/${mint}`,
+                { headers: { accept: "application/json" } }
             );
-          if (isMounted) setIsLoading(false);
-          if (isMounted) setIsLoadingPrice(false);
-          return;
-        } finally {
-          if (isMounted && !nftData) setIsLoading(false);
+            const listingPromise = axios.get(
+                `/api/tokens/${mint}/listings`,
+                { headers: { accept: "application/json" } }
+            );
+            const [detailsResponse, listingResponse] = await Promise.all([
+                detailsPromise,
+                listingPromise,
+            ]);
+        
+            if (!isMounted) return;
+        
+            if (detailsResponse.status !== 200 || !detailsResponse.data)
+                throw new Error("Failed to fetch NFT details");
+            setNftData(detailsResponse.data);
+        
+            if (
+                listingResponse.status === 200 &&
+                listingResponse.data &&
+                listingResponse.data.length > 0
+            ) {
+                currentListingPriceSol = parseFloat(listingResponse.data[0].price);
+                setListingPriceSol(currentListingPriceSol);
+            } else {
+                console.warn(`No active listings found for mint: ${mint}`);
+                currentListingPriceSol = detailsResponse.data.price ?? null;
+                setListingPriceSol(currentListingPriceSol);
+                if (currentListingPriceSol === null)
+                setError("NFT may not be currently listed for sale.");
+            }
+            } catch (err: any) {
+            console.error("Error fetching NFT data:", err);
+            if (isMounted)
+                setError(
+                err.response?.data?.message ||
+                    err.message ||
+                    "Failed to load NFT data."
+                );
+            if (isMounted) setIsLoading(false);
+            if (isMounted) setIsLoadingPrice(false);
+            return;
+            } finally {
+            if (isMounted && !nftData) setIsLoading(false);
+            }
         }
-      }
 
       if (currentListingPriceSol !== null) {
         if (selectedTokenMint === SOL_MINT_ADDRESS) {
