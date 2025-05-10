@@ -171,7 +171,7 @@ export default function CollectionsPage() {
         {/* Navigation */}
         <header className="container mx-auto px-4 py-6 flex items-center justify-between relative">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 md:ml-5">
             <BsCircleHalf size={36} className="text-purple-500" />
            <a href="/">
                 <span className="text-2xl font-bold">LiquiDate</span>
@@ -184,7 +184,7 @@ export default function CollectionsPage() {
           </nav>
 
           {/* Right Section (Visible Only on md and Up) */}
-          <div className="hidden md:flex items-center gap-4 md:mr-32">
+          <div className="hidden md:flex items-center gap-4 md:mr-52">
             <a
               href="https://x.com/raut_madridista"
               target="_blank"
