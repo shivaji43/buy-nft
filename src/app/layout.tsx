@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import AppWalletProvider from "@/components/wallet-provider";
+import { Inter } from "next/font/google";
 
+
+const inter = Inter({ subsets: ["latin"] });
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400"],
-})
+});
 
 export const metadata: Metadata = {
   title: "Liquidate",
@@ -19,15 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${spaceGrotesk.className} ${spaceGrotesk.className} antialiased`}
-      >
-        <AppWalletProvider>
-        {children}
-        </AppWalletProvider>
-        
-      </body>
-    </html>
+
+ <html lang="en" suppressHydrationWarning>
+<body className={ `${spaceGrotesk.className} ${spaceGrotesk.className} antialiased`}>
+  
+    <AppWalletProvider>
+      {children}
+    </AppWalletProvider>
+  
+</body>
+</html>
   );
 }
+
