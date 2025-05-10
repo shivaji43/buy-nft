@@ -8,7 +8,7 @@ import {
   WalletModalProvider,
   WalletMultiButton,
 } from "@solana/wallet-adapter-react-ui";
-import "@solana/wallet-adapter-react-ui/styles.css";
+import "./wallet-adapterUI/style.css"
 import { LedgerWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets";
 
 
@@ -41,8 +41,8 @@ export default function AppWalletProvider({
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <div
-            className="flex gap-2 items-center"
-            style={{ position: "absolute", top: 24, right: 30 }}
+            className="flex gap-2 items-center "
+            style={{ position: "absolute", top: 20, right: 45,zIndex:999 }}
           >
             <WalletMultiButton />
           </div>
@@ -52,3 +52,5 @@ export default function AppWalletProvider({
     </ConnectionProvider>
   );
 }
+
+
