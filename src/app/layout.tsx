@@ -3,7 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import AppWalletProvider from "@/components/wallet-provider";
 import { Inter } from "next/font/google";
-
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"] });
 const spaceGrotesk = Space_Grotesk({
@@ -22,16 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
- <html lang="en" suppressHydrationWarning>
-<body className={ `${spaceGrotesk.className} ${spaceGrotesk.className} antialiased`}>
-  
-    <AppWalletProvider>
-      {children}
-    </AppWalletProvider>
-  
-</body>
-</html>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${spaceGrotesk.className} ${spaceGrotesk.className} antialiased`}
+      >
+        <AppWalletProvider>{children}<Analytics /></AppWalletProvider>
+      </body>
+    </html>
   );
 }
-
