@@ -41,7 +41,7 @@ export default function AppWalletProvider({
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <div
-            className="flex gap-2 items-center "
+            className="flex gap-2 items-center lg:mr-40 "
             style={{ position: "absolute", top: 20, right: 45,zIndex:999 }}
           >
             <WalletMultiButton />
